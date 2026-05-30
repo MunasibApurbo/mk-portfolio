@@ -2,17 +2,17 @@
 
 ![Site Preview](preview.png)
 
-My personal portfolio — a space-themed, interactive experience built from scratch. Not your average template site.
+Portfolio website for **S M Monowar Kayser** — a multimedia designer, 3D artist, and lecturer at Daffodil International University. Built as a fully custom, space-themed interactive experience from scratch. No templates, no page builders.
 
 **[→ Live Site](https://monowarkayser.com)**
 
 ---
 
-## What is this?
+## About the project
 
-This is my portfolio website. I'm MK — a multimedia designer, 3D artist, and lecturer at Daffodil International University. I wanted something that actually represents what I do: immersive 3D work, cinematic motion, and creative storytelling. So I built this instead of picking a Squarespace template.
+MK needed a portfolio that actually reflects what he does — immersive 3D work, cinematic motion, creative storytelling. So instead of going the safe route with a Squarespace or WordPress theme, I built this from the ground up.
 
-The site features an interactive 3D rover scene (Perseverance, Draco-compressed and texture-stripped for speed), horizontal scroll transitions, particle systems, a canvas-rendered timeline, and a few other things I thought were cool. The whole thing runs smooth on desktop and gracefully degrades on mobile — no 3D on phones, just clean layouts and swipeable carousels.
+The site features an interactive 3D rover scene (Perseverance, Draco-compressed and texture-stripped for speed), horizontal scroll transitions, particle systems, a canvas-rendered timeline, and a few other things that felt right for someone in his field. The whole thing runs smooth on desktop and gracefully degrades on mobile — no 3D on phones, just clean layouts and swipeable carousels.
 
 ## Running locally
 
@@ -21,7 +21,7 @@ npm install
 npm run dev
 ```
 
-That's it. Vite handles the rest. Opens at `localhost:5173`.
+Opens at `localhost:5173`. Vite handles the rest.
 
 For a production build:
 
@@ -41,7 +41,7 @@ The stack is intentionally lean — no React, no Next.js, no framework overhead.
 - **Tailwind CSS** for styling
 - **Vanilla JS (ES6 modules)** for everything else
 
-Heavy stuff like the rover scene, teaching sphere, and particle systems are code-split into separate chunks and lazy-loaded where it makes sense. The rover model itself is a Draco-compressed GLTF with embedded textures stripped out (we apply our own materials in code anyway), bringing it down from ~7.5MB to ~1.3MB.
+Heavy stuff like the rover scene, teaching sphere, and particle systems are code-split into separate chunks and lazy-loaded where it makes sense. The rover model itself is a Draco-compressed GLTF with embedded textures stripped out (materials are applied in code anyway), bringing it down from ~7.5MB to ~1.3MB.
 
 ## Project layout
 
@@ -68,17 +68,17 @@ public/
 
 ## Deployment
 
-Currently hosted on **Netlify**. The `netlify.toml` in the root handles build config, redirects, caching headers, and security headers automatically. Just push to `main`.
+Hosted on **Netlify**. The `netlify.toml` in the root handles build config, redirects, caching headers, and security headers automatically. Push to `main` and it's live.
 
-There's also a GitHub Actions workflow (`.github/workflows/deploy.yml`) if you ever want to use GitHub Pages instead.
+There's also a GitHub Actions workflow if you ever want to switch to GitHub Pages.
 
 ## Notes
 
 - Needs **Node 20+** to build
-- The rover model uses Draco compression — the WASM decoder lives in `public/draco/`
-- PWA-ready with auto-updating service worker (via `vite-plugin-pwa`)
-- On mobile, 3D scenes are skipped entirely to keep things fast. The teaching section becomes a horizontal card carousel, and the rover section just doesn't render.
+- Rover model uses Draco compression — WASM decoder lives in `public/draco/`
+- PWA-ready with auto-updating service worker
+- On mobile, 3D scenes are skipped entirely to keep things fast
 
 ---
 
-Built by **S M Monowar Kayser** · [monowarkayser.com](https://monowarkayser.com)
+Designed & developed by **[Munasib Apurbo](https://github.com/MunasibApurbo)**
