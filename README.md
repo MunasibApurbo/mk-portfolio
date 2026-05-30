@@ -1,108 +1,84 @@
-# S M Monowar Kayser | 3D & Multimedia Portfolio
+# monowarkayser.com
 
-A high-performance, immersive 3D portfolio website showcasing the work of S M Monowar Kayser. Built with modern web technologies to deliver a premium, cinematic experience.
+![Site Preview](preview.png)
 
-## 🚀 Tech Stack
+My personal portfolio — a space-themed, interactive experience built from scratch. Not your average template site.
 
-- **Framework:** Vanilla JS (Modular ES6+)
-- **Build Tool:** [Vite](https://vitejs.dev/)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-- **3D Graphics:** [Three.js](https://threejs.org/)
-- **Animations:** [GSAP](https://greensock.com/gsap/) (ScrollTrigger)
-- **Smooth Scroll:** [Lenis](https://github.com/studio-freight/lenis)
-
-## 🛠 Features
-
-- **3D Transitions:** Seamless camera transitions between standard DOM content and 3D scenes (Spotlight Rover).
-- **Procedural Art:** 3D particles, starfields, and a procedural rover generated in real-time.
-- **Expertise Sphere:** Interactive 3D tag cloud for teaching areas.
-- **Tree Timeline:** Canvas-based animated journey/experience timeline.
-- **Performance Optimized:**
-    - Lazy loading for images and heavy 3D modules.
-    - Dynamic imports for `rover-scene.js`, `teaching-areas.js`, `awards-particles.js`, `tree-timeline.js`.
-    - Optimized asset delivery (WebP images, Draco-compressed 3D models).
-    - Code splitting with manual chunks for vendor libraries.
-- **PWA Ready:** Configured with `vite-plugin-pwa` for offline capability and installability.
-- **Responsive:** Fully adaptive layout with mobile-specific optimizations (carousel views, reduced 3D overhead).
-
-## 📦 Project Structure
-
-```
-├── .github/
-│   └── workflows/
-│       └── deploy.yml       # GitHub Pages CI/CD
-├── public/
-│   ├── draco/               # Draco decoder (WASM)
-│   ├── images/              # Static images (WebP, SVG, MP4)
-│   ├── models/              # 3D models (GLTF + textures)
-│   ├── robots.txt
-│   ├── site.webmanifest
-│   └── sitemap.xml
-├── src/
-│   ├── assets/fonts/        # Custom fonts
-│   ├── main.js              # Entry point & orchestration
-│   ├── rover-scene.js       # Three.js rover scene
-│   ├── spotlight-interaction.js  # 3D spotlight UI
-│   ├── teaching-areas.js    # 3D expertise sphere
-│   ├── tree-timeline.js     # Canvas timeline
-│   ├── awards-particles.js  # Awards section particles
-│   ├── scroll-animations.js # GSAP scroll animations
-│   ├── animations.js        # Global GSAP animations
-│   ├── performance-manager.js # Adaptive performance
-│   ├── data.js              # Centralized content data
-│   ├── style.css            # Tailwind directives & custom CSS
-│   └── ...                  # Other modules
-├── index.html               # Main markup
-├── 404.html                 # Custom 404 page
-├── vite.config.js           # Build configuration
-├── tailwind.config.js       # Tailwind theme
-└── package.json
-```
-
-## 🔧 Development
-
-```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build locally
-npm run preview
-```
-
-## 🚀 Deployment (GitHub Pages)
-
-This project is configured for automatic deployment via GitHub Actions.
-
-### Automatic Deployment
-1. Push to the `main` branch.
-2. The GitHub Actions workflow (`.github/workflows/deploy.yml`) will:
-   - Install dependencies
-   - Build the project with Vite
-   - Deploy the `dist/` folder to GitHub Pages
-
-### GitHub Setup
-1. Go to your repository **Settings → Pages**.
-2. Under **Source**, select **GitHub Actions**.
-3. Push to `main` — the workflow will handle the rest.
-
-### Manual Deployment
-```bash
-npm run build
-# Upload the contents of `dist/` to your hosting provider
-```
-
-## 📋 Environment Notes
-
-- **Node.js 20+** recommended
-- **3D Models:** Perseverance rover model uses Draco compression (WASM decoder included in `public/draco/`)
-- **PWA:** Service worker auto-updates on new deployments
+**[→ Live Site](https://monowarkayser.com)**
 
 ---
 
-**Designed & Developed by Munasib Apurbo**
+## What is this?
+
+This is my portfolio website. I'm MK — a multimedia designer, 3D artist, and lecturer at Daffodil International University. I wanted something that actually represents what I do: immersive 3D work, cinematic motion, and creative storytelling. So I built this instead of picking a Squarespace template.
+
+The site features an interactive 3D rover scene (Perseverance, Draco-compressed and texture-stripped for speed), horizontal scroll transitions, particle systems, a canvas-rendered timeline, and a few other things I thought were cool. The whole thing runs smooth on desktop and gracefully degrades on mobile — no 3D on phones, just clean layouts and swipeable carousels.
+
+## Running locally
+
+```bash
+npm install
+npm run dev
+```
+
+That's it. Vite handles the rest. Opens at `localhost:5173`.
+
+For a production build:
+
+```bash
+npm run build
+npm run preview
+```
+
+## How it's built
+
+The stack is intentionally lean — no React, no Next.js, no framework overhead. Just modules.
+
+- **Vite** for bundling and dev server
+- **Three.js** for the 3D scenes (rover viewport, expertise sphere, award particles)
+- **GSAP + ScrollTrigger** for all the scroll-driven animations and transitions
+- **Lenis** for that buttery smooth scroll feel
+- **Tailwind CSS** for styling
+- **Vanilla JS (ES6 modules)** for everything else
+
+Heavy stuff like the rover scene, teaching sphere, and particle systems are code-split into separate chunks and lazy-loaded where it makes sense. The rover model itself is a Draco-compressed GLTF with embedded textures stripped out (we apply our own materials in code anyway), bringing it down from ~7.5MB to ~1.3MB.
+
+## Project layout
+
+```
+src/
+├── main.js                  # entry point, orchestrates everything
+├── rover-scene.js           # Three.js perseverance rover viewport
+├── spotlight-interaction.js # rover UI overlay (mode switching, HUD)
+├── teaching-areas.js        # 3D expertise tag sphere
+├── tree-timeline.js         # canvas-based journey timeline
+├── awards-particles.js      # floating particles on awards section
+├── scroll-animations.js     # GSAP scroll-driven transitions
+├── performance-manager.js   # adapts quality based on device capability
+├── data.js                  # content data (journey, expertise tags)
+├── style.css                # base styles + tailwind
+└── ...                      # cursor effects, nav, tilt, etc.
+
+public/
+├── models/perseverance/     # draco-compressed rover model
+├── draco/                   # WASM decoder for draco
+├── images/                  # project thumbnails, profile photo
+└── ...                      # manifest, sitemap, robots.txt
+```
+
+## Deployment
+
+Currently hosted on **Netlify**. The `netlify.toml` in the root handles build config, redirects, caching headers, and security headers automatically. Just push to `main`.
+
+There's also a GitHub Actions workflow (`.github/workflows/deploy.yml`) if you ever want to use GitHub Pages instead.
+
+## Notes
+
+- Needs **Node 20+** to build
+- The rover model uses Draco compression — the WASM decoder lives in `public/draco/`
+- PWA-ready with auto-updating service worker (via `vite-plugin-pwa`)
+- On mobile, 3D scenes are skipped entirely to keep things fast. The teaching section becomes a horizontal card carousel, and the rover section just doesn't render.
+
+---
+
+Built by **S M Monowar Kayser** · [monowarkayser.com](https://monowarkayser.com)
