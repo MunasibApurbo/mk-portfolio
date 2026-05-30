@@ -1,0 +1,22 @@
+{
+    "name": "S M Monowar Kayser | Multimedia Designer",
+    "short_name": "MK Portfolio",
+    "description": "Portfolio of S M Monowar Kayser - Multimedia Designer & Lecturer",
+    "start_url": "./",
+    "display": "standalone",
+    "background_color": "#1a0636",
+    "theme_color": "#22d3ee",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "./logo.webp",
+            "type": "image/webp",
+            "sizes": "192x192"
+        },
+        {
+            "src": "./logo.webp",
+            "type": "image/webp",
+            "sizes": "512x512"
+        }
+    ]
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Lost in Space | MK Portfolio</title>
+    <link rel="icon" type="image/svg+xml" href="./images/mk-favicon.svg">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Erica+One&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Tailwind & Custom Styles -->
+    <link rel="stylesheet" href="./src/style.css">
+</head>
+
+<body
+    class="bg-[#1a0636] text-white overflow-hidden h-screen w-screen flex items-center justify-center relative font-sans selection:bg-cyan-500 selection:text-white">
+
+    <!-- Ambient Background Lighting -->
+    <div
+        class="absolute top-[-50%] left-[-20%] w-[80vw] h-[80vw] bg-purple-600/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen animate-pulse-slow">
+    </div>
+    <div
+        class="absolute bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] bg-violet-500/10 rounded-full blur-[100px] pointer-events-none mix-blend-screen">
+    </div>
+
+    <!-- Giant Watermark -->
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
+        <h1 class="text-[clamp(20rem,50vw,40rem)] font-bold text-white/5 leading-none tracking-tighter font-display">404
+        </h1>
+    </div>
+
+    <!-- Content Container -->
+    <div class="relative z-10 text-center px-6 flex flex-col items-center gap-6">
+        <!-- Icon/Logo Placeholder (Optional, using text for now based on image) -->
+
+        <h2
+            class="font-display text-6xl md:text-9xl font-bold tracking-tight text-cyan-400 mb-2 drop-shadow-[0_0_25px_rgba(34,211,238,0.6)] uppercase">
+            Lost in Space?
+        </h2>
+
+        <p class="text-gray-400 text-lg md:text-xl font-light max-w-md mx-auto leading-relaxed">
+            The page you’re looking for has drifted into the void.
+        </p>
+
+        <!-- Action Button -->
+        <a href="./"
+            class="mt-8 px-12 py-5 bg-cyan-400 text-[#0D0319] font-bold text-sm tracking-widest uppercase rounded-full md:rounded-none md:-skew-x-12 hover:bg-cyan-300 hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] transition-all duration-300 ease-out flex items-center gap-2 group transform hover:scale-105">
+            <span class="md:skew-x-12">Return Home</span>
+        </a>
+    </div>
+
+    <!-- Noise Overlay (Vibe consistency) -->
+    <div class="noise-overlay fixed inset-0 opacity-[0.03] pointer-events-none z-50 mix-blend-overlay"></div>
+
+</body>
+<!-- Refresh Trigger -->
+
+</html>

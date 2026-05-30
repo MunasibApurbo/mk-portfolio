@@ -1,0 +1,771 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* FORCE LIME OVERRIDE FOR WHITE */
+.text-white {
+    color: #E5F9C9 !important;
+}
+
+.bg-white {
+    background-color: #E5F9C9 !important;
+}
+
+.border-white {
+    border-color: #E5F9C9 !important;
+}
+
+/* Handle Opacity Variants manually if needed, or rely on Tailwind to use the variable if we set one */
+/* Since Tailwind generates opacity utilities like text-white/50, we can't easily override ALL of them with simple CSS unless we use a variable */
+:root {
+    --color-white: #E5F9C9;
+}
+
+/* Redefine body default */
+body {
+    color: #E5F9C9 !important;
+}
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+#contact {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+#main-content {
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+#work-profile-wrapper,
+#work {
+    contain: paint;
+}
+
+/* Rendering Optimization: Off-screen Content Containment */
+#awards {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 100vh;
+}
+
+#teaching {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 80vh;
+}
+
+#journey-wrapper {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 150vh;
+}
+
+@media (min-width: 768px) {
+    #work-content {
+        position: absolute;
+        inset: 0 auto 0 0;
+    }
+}
+
+/* Typography Enhancements */
+@layer base {
+
+    /* Mobile-Only Aggressive Overflow Fix */
+    @media (max-width: 768px) {
+
+        html,
+        body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden !important;
+            position: relative;
+            /* Ensure overflow hidden works contextually */
+        }
+
+        /* Performance - Disable blur on mobile (REMOVED for Menu) */
+        /* * {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        } */
+    }
+
+    /* GLOBAL EFFICIENCY MODE (Desktop & Mobile) */
+    body.efficiency-mode *:not(#mobile-menu-overlay) {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    body.efficiency-mode .reveal-noise,
+    body.efficiency-mode .noise-overlay {
+        display: none !important;
+    }
+
+    body {
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 500;
+        font-size: 1rem;
+        line-height: 1.6;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+
+
+    .label,
+    [class*="uppercase"][class*="text-xs"] {
+        letter-spacing: 0.1em;
+    }
+}
+
+/* .font-display handled by Tailwind config */
+
+.font-expanded {
+    font-stretch: expanded;
+}
+
+
+
+/* Simulated Heavy Weight */
+.font-super {
+    -webkit-text-stroke: 4px currentColor;
+    paint-order: stroke fill;
+    font-weight: 900;
+}
+
+/* Global Reset for Mobile Tap Highlight */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Custom Cursor */
+#cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    /* Filled */
+    border: 2px solid white;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 20000;
+    transform: translate3d(-50%, -50%, 0);
+    transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
+    mix-blend-mode: difference;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+#cursor.hovered {
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    /* Filled on hover too */
+    border-width: 2px;
+    mix-blend-mode: difference;
+}
+
+/* Hide cursor on mobile */
+@media (max-width: 768px),
+(hover: none) and (pointer: coarse) {
+    #cursor {
+        display: none !important;
+    }
+}
+
+/* Hide default cursor on desktop */
+@media (min-width: 768px) {
+
+    body,
+    html {
+        cursor: none !important;
+        /* scroll-behavior: smooth; Removed for zero latency */
+    }
+
+    a,
+    button,
+    .hoverable,
+    input,
+    textarea,
+    .cursor-pointer,
+    .accordion-header {
+        cursor: none !important;
+    }
+}
+
+/* Scrollbar - Hidden */
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+/* Utility to Hide Scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* =========================================
+   AWWARDS POLISH: CINEMATIC GRAIN
+   ========================================= */
+.noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    animation: noiseShift 2s steps(4) infinite;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+}
+
+@keyframes noiseShift {
+
+    0%,
+    100% {
+        background-position: 0 0;
+    }
+
+    25% {
+        background-position: -5px -10px;
+    }
+
+    50% {
+        background-position: 5px 5px;
+    }
+
+    75% {
+        background-position: -10px 10px;
+    }
+}
+
+/* Utility for 3D Tilt */
+.tilt-card {
+    /* will-change removed - let GSAP handle it */
+    transform-style: preserve-3d;
+}
+
+/* Bento Grid Styles */
+.bento-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+    background-color: rgba(229, 249, 201, 0.05);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    /* will-change removed to prevent memory issues */
+}
+
+
+
+@media (min-width: 768px) {
+
+    /* Grayscale removed to keep green badges visible */
+    .bento-card {
+        transition: transform 0.3s ease;
+    }
+}
+
+.card-image-wrapper {
+    position: absolute;
+    top: -5%;
+    left: -5%;
+    width: 110%;
+    height: 110%;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Moon Box Hover Effect */
+@media (hover: hover) {
+
+    /* Moon Box Hover Effect */
+    .moon-box:hover .kinetic-char {
+        color: #E5F9C9 !important;
+        transition: color 0.3s ease;
+    }
+}
+
+/* Profile Animation Optimization */
+.profile-3d,
+.profile-text-anim {
+    will-change: transform, opacity;
+}
+
+/* Smooth Digital Dissolve Reveal */
+.reveal-noise {
+    opacity: 0;
+    filter: grayscale(100%) contrast(120%) blur(4px);
+    transition: opacity 0.4s ease-out;
+    mix-blend-mode: normal;
+    will-change: filter, opacity, transform;
+}
+
+/* Soft Noise Layer */
+.reveal-noise::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* Smoother, lower frequency noise */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity: 0;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    background-size: 150px 150px;
+}
+
+@keyframes image-construct-smooth {
+    0% {
+        filter: grayscale(100%) contrast(150%) blur(12px);
+        transform: scale(1.1);
+        /* Reduced scale */
+    }
+
+    100% {
+        filter: grayscale(0%) contrast(100%) blur(0px);
+        transform: scale(1.1);
+        /* Maintain same scale to prevent "pop" */
+    }
+}
+
+/* Disable hover trigger for reveal noise if desired, or keep it subtle */
+.group:hover .reveal-noise {
+    opacity: 1;
+    /* transition: opacity 0.5s ease; */
+    /* Simple fade without scale popping */
+    animation: none;
+    /* Disable the popping animation fully */
+    filter: grayscale(0%);
+    /* Direct switch or use simple transition */
+}
+
+
+
+/* Nav Link Animation - Parallelogram Background */
+.nav-link {
+    /* Position relative for absolute pseudo-element */
+    position: relative;
+    text-decoration: none;
+    padding: 0.25rem 0.75rem;
+    z-index: 1;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    transform: skewX(-12deg) scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    z-index: -1;
+}
+
+.nav-link:hover::before,
+.active-nav::before {
+    transform: skewX(-12deg) scaleX(1);
+    transform-origin: left;
+    background-color: rgba(229, 249, 201, 0.15);
+    border: 1px solid rgba(229, 249, 201, 0.4);
+}
+
+/* Custom Font Width Utilities */
+@layer utilities {
+    .font-expanded {
+        font-variation-settings: "wdth" 125;
+        font-stretch: 125%;
+    }
+
+    .font-condensed {
+        font-variation-settings: "wdth" 75;
+        font-stretch: 75%;
+    }
+}
+
+/* Geometric Shape Utilities */
+.shape-parallelogram {
+    border-radius: 0 !important;
+    transform: skewX(-12deg);
+}
+
+.shape-parallelogram>* {
+    transform: skewX(12deg);
+}
+
+/* For nested parallelograms (like badges inside cards), we need to manage the stack */
+.shape-parallelogram .shape-parallelogram {
+    transform: skewX(-12deg);
+    /* Re-apply skew relative to unskewed parent container */
+}
+
+.shape-parallelogram .shape-parallelogram>* {
+    transform: skewX(12deg);
+}
+
+/* Disable parallelogram shape on mobile to prevent horizontal overflow */
+/* Also add rounded corners for modern mobile look */
+@media (max-width: 767px) {
+
+    /* Remove all skew transforms on mobile */
+    .shape-parallelogram,
+    .shape-parallelogram>*,
+    .shape-parallelogram .shape-parallelogram,
+    .shape-parallelogram .shape-parallelogram>*,
+    .-skew-x-12,
+    .skew-x-12,
+    [class*="skew-x"] {
+        transform: none !important;
+    }
+
+    /* Rounded corners for all cards on mobile */
+    .shape-parallelogram,
+    .bento-card,
+    .timeline-card {
+        border-radius: 1rem !important;
+    }
+
+    /* Rounded corners for card badges/tags */
+    .bento-card span[class*="skew"],
+    .bento-card span.-skew-x-12 {
+        border-radius: 9999px !important;
+    }
+}
+
+/* Force element to match parent's skew (fill the shape) */
+.skew-fill {
+    transform: none !important;
+}
+
+/* Page Transition Preloader */
+.preloader {
+    display: block;
+}
+
+.preloader-layer {
+    will-change: transform;
+    transform-origin: bottom;
+    /* Wipe from bottom up */
+}
+
+/* FIX: Enforce Opaque Background and Z-Index Stacking */
+#teaching,
+#awards,
+#timeline {
+    position: relative;
+    z-index: 20;
+    /* Ensure content sits above the fixed footer (z-0) */
+}
+
+/* PERFORMANCE: Disable Backdrop Filter on Low-End / Mobile */
+@media (max-width: 768px),
+(prefers-reduced-motion: reduce) {
+
+    .bento-card,
+    .timeline-card {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background-color: rgba(26, 6, 54, 0.95) !important;
+        /* Solid fallback */
+        box-shadow: none !important;
+    }
+
+    /* Tilt card (profile) - keep transparent on mobile */
+    .tilt-card {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background-color: transparent !important;
+        box-shadow: none !important;
+    }
+
+    /* Disable Expensive SVG Noise Filters */
+    .reveal-noise {
+        filter: none !important;
+        opacity: 1 !important;
+        background-image: none !important;
+        animation: none !important;
+    }
+
+    .reveal-noise::after {
+        display: none !important;
+    }
+
+    /* Disable Global Noise Overlay */
+    .noise-overlay {
+        display: none !important;
+    }
+}
+
+/* Performance Fixes: Prevent Card Flicker on Hover */
+.tilt-card,
+.timeline-card,
+.bento-card {
+    will-change: transform;
+    /* Pre-promote to GPU layer */
+    backface-visibility: hidden;
+    /* Prevent 3D rotation flicker */
+
+    -webkit-font-smoothing: antialiased;
+    /* Ensure text remains sharp */
+}
+
+/* Re-apply Skew explicitly for Timeline Cards */
+.timeline-card {
+    transform: skewX(-12deg);
+    /* Ensure base state is skewed */
+}
+
+/* Awwwards Button Micro-Interactions */
+.btn-glow {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+}
+
+.btn-glow:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(34, 211, 238, 0.5), 0 0 60px rgba(34, 211, 238, 0.3);
+}
+
+.btn-glow:active {
+    transform: scale(0.98);
+}
+
+/* Morphing Button Effect */
+.btn-morph {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 9999px;
+}
+
+.btn-morph:hover {
+    border-radius: 0.5rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+/* Link Underline Animation */
+.link-underline {
+    position: relative;
+}
+
+.link-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #22d3ee;
+    transition: width 0.3s ease;
+}
+
+.link-underline:hover::after {
+    width: 100%;
+}
+
+/* Navigation Active State - No dot, parallelogram handled in .nav-link::before */
+
+/* Custom Journey Card Background to fix Mobile Transparency Issue */
+.journey-card-mobile {
+    background-color: #0D0319 !important;
+    opacity: 1 !important;
+}
+
+@media (min-width: 768px) {
+    .journey-card-mobile {
+        background-color: rgba(229, 249, 201, 0.05) !important;
+        backdrop-filter: blur(12px);
+    }
+}
+
+/* === HOLOGRAPHIC GLITCH EFFECT === */
+.holo-container {
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0);
+    /* Hardware accelerate */
+}
+
+.holo-effect {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Pseudo-elements for the RGB split */
+.holo-effect::before,
+.holo-effect::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* We will use a mask approach or duplicate image in HTML to avoid hardcoded URLs if possible, 
+       but for now hardcoded is safest for the specific profile image */
+    background-image: url('/images/profile-cutout.webp');
+    background-size: cover;
+    background-position: top center;
+    mix-blend-mode: screen;
+    opacity: 0;
+    z-index: 2;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+/* Red Channel */
+.holo-effect::before {
+    filter: drop-shadow(4px 0 0 red);
+    transform: translateX(3px);
+}
+
+/* Blue/Cyan Channel */
+.holo-effect::after {
+    filter: drop-shadow(-4px 0 0 cyan);
+    transform: translateX(-3px);
+}
+
+/* Hover State - Trigger Glitch */
+.holo-container:hover .holo-effect::before,
+.holo-container:hover .holo-effect::after {
+    opacity: 0.5;
+    animation: holoGlitch 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+}
+
+.holo-container:hover .holo-effect::after {
+    animation-direction: reverse;
+    animation-duration: 0.3s;
+}
+
+@keyframes holoGlitch {
+    0% {
+        transform: translate(0);
+    }
+
+    20% {
+        transform: translate(-4px, 4px);
+    }
+
+    40% {
+        transform: translate(-4px, -4px);
+    }
+
+    60% {
+        transform: translate(4px, 4px);
+    }
+
+    80% {
+        transform: translate(4px, -4px);
+    }
+
+    100% {
+        transform: translate(0);
+    }
+}
+
+/* =========================================
+   BLENDER GLASS UI
+   ========================================= */
+#blender-ui-window {
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease-out;
+}
+
+#blender-ui-window.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Scrollbar within Blender Panels */
+#blender-ui-window ::-webkit-scrollbar {
+    width: 4px;
+    background: transparent;
+}
+
+#blender-ui-window ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+#blender-ui-window ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Viewport Buttons */
+#mode-wireframe.active,
+#mode-solid.active,
+#mode-render.active {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Timeline Animation */
+@keyframes timelineScan {
+    0% {
+        left: 0%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+#timeline-scrubber {
+    animation: timelineScan 8s linear infinite;
+}
+
+/* Pulse animation for mem stat */
+@keyframes pulse-green {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Rover Scene Cursor Override */
+#blender-ui-window,
+#blender-ui-window button,
+#blender-ui-window a,
+#blender-ui-window input,
+#blender-ui-window select,
+#blender-ui-window div {
+    cursor: none !important;
+}
+
+#blender-viewport canvas {
+    cursor: none !important;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%) skewX(-20deg);
+    }
+
+    100% {
+        transform: translateX(100%) skewX(-20deg);
+    }
+}
