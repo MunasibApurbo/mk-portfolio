@@ -43,34 +43,7 @@ export default defineConfig({
                             }
                         }
                     },
-                    {
-                        urlPattern: /\/draco\/.*/,
-                        handler: 'CacheFirst',
-                        options: {
-                            cacheName: 'draco-decoder',
-                            expiration: {
-                                maxEntries: 10,
-                                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
-                            },
-                            cacheableResponse: {
-                                statuses: [0, 200]
-                            }
-                        }
-                    },
-                    {
-                        urlPattern: /\.(?:gltf|glb|bin)$/,
-                        handler: 'CacheFirst',
-                        options: {
-                            cacheName: '3d-models',
-                            expiration: {
-                                maxEntries: 10,
-                                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
-                            },
-                            cacheableResponse: {
-                                statuses: [0, 200]
-                            }
-                        }
-                    },
+
                     {
                         urlPattern: /\.(?:png|jpg|jpeg|svg|webp|gif)$/,
                         handler: 'StaleWhileRevalidate',

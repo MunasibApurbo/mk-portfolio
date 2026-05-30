@@ -154,7 +154,7 @@ export function initRoverScene() {
 
     // DRACO CONFIGURATION
     const dracoLoader = new DRACOLoader();
-    dracoLoader.setDecoderPath('/draco/'); // Path to static public folder
+    dracoLoader.setDecoderPath('./draco/'); // Path to static public folder
     // dracoLoader.setDecoderConfig({ type: 'js' }); // Removed to allow WASM auto-detect
     loader.setDRACOLoader(dracoLoader);
 
@@ -296,7 +296,7 @@ export function initRoverScene() {
     spotlightCtrl = new SpotlightInteraction(scene, null);
 
     // LOAD COMPRESSED ROVER
-    loader.load('/models/perseverance/scene-draco.gltf', (gltf) => {
+    loader.load('./models/perseverance/scene-draco.gltf', (gltf) => {
 
         // Dispatch Loaded Event
         window.dispatchEvent(new CustomEvent('rover-loaded'));
