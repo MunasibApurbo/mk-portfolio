@@ -57,6 +57,20 @@ export default defineConfig({
                                 statuses: [0, 200]
                             }
                         }
+                    },
+                    {
+                        urlPattern: /\.(?:gltf|glb|bin|wasm)$/,
+                        handler: 'CacheFirst',
+                        options: {
+                            cacheName: '3d-models',
+                            expiration: {
+                                maxEntries: 10,
+                                maxAgeSeconds: 60 * 60 * 24 * 90 // 90 days
+                            },
+                            cacheableResponse: {
+                                statuses: [0, 200]
+                            }
+                        }
                     }
                 ]
             }

@@ -296,7 +296,7 @@ export function initRoverScene() {
     spotlightCtrl = new SpotlightInteraction(scene, null);
 
     // LOAD COMPRESSED ROVER
-    loader.load('./models/perseverance/scene-draco.gltf', (gltf) => {
+    loader.load('./models/perseverance/scene-draco-lite.gltf', (gltf) => {
 
         // Dispatch Loaded Event
         window.dispatchEvent(new CustomEvent('rover-loaded'));

@@ -315,12 +315,12 @@ export class SpotlightInteraction {
     }
 
     simulateLoadingSequence() {
-        // Fake Load
-        if (this.loaderText) this.loaderText.innerText = "RE-INITIALIZING SYSTEMS...";
+        // Quick simulated load (model is only ~1.3MB)
+        if (this.loaderText) this.loaderText.innerText = "SYSTEMS ONLINE";
 
         gsap.to(this.loaderBar, {
             width: '100%',
-            duration: 1.2,
+            duration: 0.5,
             ease: "power2.inOut",
             onComplete: () => this.finishLoading()
         });
@@ -332,16 +332,16 @@ export class SpotlightInteraction {
         // Flash bar
         gsap.to(this.loaderBar, {
             boxShadow: "0 0 30px rgba(34,211,238,1)",
-            duration: 0.2,
+            duration: 0.15,
             yoyo: true,
             repeat: 1
         });
 
-        // Hide Loader
+        // Hide Loader quickly
         gsap.to(this.loader, {
             opacity: 0,
-            duration: 0.6,
-            delay: 0.3,
+            duration: 0.3,
+            delay: 0.15,
             ease: "power2.inOut",
             onComplete: () => {
                 this.loader.style.display = 'none';

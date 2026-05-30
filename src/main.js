@@ -127,45 +127,33 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavHighlight();
 
     if (!isMobile) {
-        // DESKTOP: Lazy Load Heavy Assets (Interaction/Idle Based)
-        let assetsLoaded = false;
+        // DESKTOP: Load rover immediately (model is only ~1.3MB after texture stripping)
+        // No deferral needed — instant load for best UX
+        const statusText = document.getElementById('loader-status');
+        if (statusText) statusText.innerText = "ESTABLISHING UPLINK...";
 
-        const loadHeavyAssets = () => {
-            if (assetsLoaded) return;
-            assetsLoaded = true;
+        import('./rover-scene.js').then(module => {
+            module.initRoverScene();
+        });
 
-            // Remove listeners
+        // Lazy load awards particles on interaction (less critical)
+        let awardsLoaded = false;
+        const loadAwardsParticles = () => {
+            if (awardsLoaded) return;
+            awardsLoaded = true;
             ['scroll', 'mousemove', 'touchstart', 'click'].forEach(evt =>
-                window.removeEventListener(evt, loadHeavyAssets)
+                window.removeEventListener(evt, loadAwardsParticles)
             );
-
-            // Sequential Loading using requestIdleCallback to prevent TBT
             const requestIdle = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
-
-            // Update status to connecting
-            const statusText = document.getElementById('loader-status');
-            if (statusText) statusText.innerText = "ESTABLISHING UPLINK...";
-
-            // 1. Rover Scene (Highest Priority of heavy assets)
-            requestIdle(() => {
-                import('./rover-scene.js').then(module => {
-                    module.initRoverScene();
-                });
-            }, { timeout: 2000 });
-
-            // 2. Awards Particles (Independent Priority)
             requestIdle(() => {
                 import('./awards-particles.js').then(m => m.initAwardsParticles());
             }, { timeout: 2000 });
         };
 
-        // Trigger on first interaction OR after delay (3.5s)
-        // Balanced: 3.5s clears Lighthouse TBT window (Score 90+), 
-        // while "mousemove" ensures instant load for real humans.
         ['scroll', 'mousemove', 'touchstart', 'click'].forEach(evt =>
-            window.addEventListener(evt, loadHeavyAssets, { once: true, passive: true })
+            window.addEventListener(evt, loadAwardsParticles, { once: true, passive: true })
         );
-        setTimeout(loadHeavyAssets, 3500);
+        setTimeout(loadAwardsParticles, 3500);
 
         // Listen for Rover Progress (Local Loader)
         window.addEventListener('rover-progress', (e) => {
@@ -178,10 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Hide Local Loader when Done
-        // Logic moved to SpotlightInteraction to support "Always Loading" on re-entry
         window.addEventListener('rover-loaded', () => {
-            // Optional: Dispatch a secondary global state event if needed, 
-            // but SpotlightInteraction listens to 'rover-loaded' directly now.
             document.body.classList.add('assets-ready');
         });
 
